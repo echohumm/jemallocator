@@ -2,7 +2,8 @@
 
 [package]
 name = "memapi-jemalloc-sys"
-version = "0.6.0+5.3.0-1-ge13ca993e8ccb9ba9847cc330696e02839f328f7"
+#         own ver+jemalloc ver-commits past ver-commit hash
+version = "0.1.0+5.3.0-298-g70d4102f48dce2d5755e9139a15eeec606f97bff"
 build = "build.rs"
 links = "jemalloc"
 license = "MIT OR Apache-2.0"
