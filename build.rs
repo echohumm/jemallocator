@@ -108,8 +108,8 @@ fn main() {
 
     if !use_prefix
         && NO_UNPREFIXED_MALLOC_TARGETS
-            .iter()
-            .any(|i| target.contains(i))
+        .iter()
+        .any(|i| target.contains(i))
     {
         warning!(
             "Unprefixed `malloc` requested on unsupported platform `{}` => using prefixed `malloc`",
@@ -158,7 +158,7 @@ fn main() {
     info!("CFLAGS={:?}", cflags);
 
     assert!(out_dir.exists(), "OUT_DIR does not exist");
-    let jemalloc_repo_dir = PathBuf::from("jemalloc");
+    let jemalloc_repo_dir = PathBuf::from("c");
     info!("JEMALLOC_REPO_DIR={:?}", jemalloc_repo_dir);
 
     if build_dir.exists() {
@@ -188,15 +188,15 @@ fn main() {
             .replace("C:\\", "/c/")
             .replace('\\', "/"),
     )
-    .current_dir(&build_dir)
-    .env("CC", compiler.path())
-    .env("CFLAGS", cflags.clone())
-    .env("LDFLAGS", cflags.clone())
-    .env("CPPFLAGS", cflags)
-    .arg(format!("--with-version={je_version}"))
-    .arg("--disable-cxx")
-    .arg("--enable-doc=no")
-    .arg("--enable-shared=no");
+        .current_dir(&build_dir)
+        .env("CC", compiler.path())
+        .env("CFLAGS", cflags.clone())
+        .env("LDFLAGS", cflags.clone())
+        .env("CPPFLAGS", cflags)
+        .arg(format!("--with-version={je_version}"))
+        .arg("--disable-cxx")
+        .arg("--enable-doc=no")
+        .arg("--enable-shared=no");
 
     if target.contains("ios") {
         // newer iOS deviced have 16kb page sizes:

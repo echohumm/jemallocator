@@ -1,2 +1,40 @@
-[workspace]
-members = ["jemallocator", "jemallocator-global", "jemalloc-ctl", "jemalloc-sys"]
+# This repo is a slightly modified version of tikv/jemallocator
+
+[package]
+name = "jemalloc-ffi"
+version = "0.6.0+5.3.0-1-ge13ca993e8ccb9ba9847cc330696e02839f328f7"
+build = "build.rs"
+links = "jemalloc"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/echohumm/memapi/tree/master/jemalloc"
+edition = "2018"
+rust-version = "1.63.0"
+
+[badges]
+maintenance = { status = "actively-developed" }
+
+[lints.rust]
+unexpected_cfgs = { level = "allow", check-cfg = [
+    'cfg(jemallocator_docs)',
+    'cfg(prefixed)',
+] }
+
+[dependencies]
+libc = { version = "^0.2", default-features = false }
+
+[build-dependencies]
+cc = "^1.0.13"
+
+[features]
+default = ["background_threads_runtime_support"]
+profiling = []
+debug = []
+background_threads_runtime_support = []
+background_threads = [ "background_threads_runtime_support" ]
+stats = []
+unprefixed_malloc_on_supported_platforms = []
+disable_initial_exec_tls = []
+disable_cache_oblivious = []
+
+[package.metadata.docs.rs]
+rustdoc-args = [ "--cfg",  "jemallocator_docs" ]

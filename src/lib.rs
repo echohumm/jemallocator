@@ -41,7 +41,6 @@
 //! [jemalloc_mallctl]: http://jemalloc.net/jemalloc.3.html#mallctl_namespace
 #![no_std]
 #![allow(non_snake_case, non_camel_case_types)]
-// TODO: rename the following lint on next minor bump
 #![allow(renamed_and_removed_lints)]
 #![deny(missing_docs, broken_intra_doc_links)]
 
@@ -548,7 +547,7 @@ extern "C" {
     /// function is likely to result in a crash or deadlock.
     #[cfg_attr(prefixed, link_name = "_rjem_malloc_message")]
     pub static mut malloc_message:
-        Option<unsafe extern "C" fn(cbopaque: *mut c_void, s: *const c_char)>;
+    Option<unsafe extern "C" fn(cbopaque: *mut c_void, s: *const c_char)>;
 
     /// Compile-time string of configuration options.
     ///
