@@ -1,12 +1,13 @@
 # This repo is a slightly modified version of tikv/jemallocator
 
 [package]
-name = "jemalloc-ffi"
+name = "memapi-jemalloc-sys"
 version = "0.6.0+5.3.0-1-ge13ca993e8ccb9ba9847cc330696e02839f328f7"
 build = "build.rs"
 links = "jemalloc"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/echohumm/memapi/tree/master/jemalloc"
+repository = "https://github.com/echohumm/jemallocator"
+description = "FFI bindings to Jemalloc made for memapi."
 edition = "2018"
 rust-version = "1.63.0"
 
