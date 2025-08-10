@@ -193,7 +193,7 @@ fn main() {
         .env("CFLAGS", cflags.clone())
         .env("LDFLAGS", cflags.clone())
         .env("CPPFLAGS", cflags)
-        .arg(format!("--with-version={je_version}"))
+        .arg(format!("--with-version={}", je_version))
         .arg("--disable-cxx")
         .arg("--enable-doc=no")
         .arg("--enable-shared=no");
@@ -236,27 +236,27 @@ fn main() {
 
     if !malloc_conf.is_empty() {
         info!("--with-malloc-conf={}", malloc_conf);
-        cmd.arg(format!("--with-malloc-conf={malloc_conf}"));
+        cmd.arg(format!("--with-malloc-conf={}", malloc_conf));
     }
 
     if let Ok(lg_page) = read_and_watch_env("JEMALLOC_SYS_WITH_LG_PAGE") {
         info!("--with-lg-page={}", lg_page);
-        cmd.arg(format!("--with-lg-page={lg_page}"));
+        cmd.arg(format!("--with-lg-page={}", lg_page));
     }
 
     if let Ok(lg_hugepage) = read_and_watch_env("JEMALLOC_SYS_WITH_LG_HUGEPAGE") {
         info!("--with-lg-hugepage={}", lg_hugepage);
-        cmd.arg(format!("--with-lg-hugepage={lg_hugepage}"));
+        cmd.arg(format!("--with-lg-hugepage={}", lg_hugepage));
     }
 
     if let Ok(lg_quantum) = read_and_watch_env("JEMALLOC_SYS_WITH_LG_QUANTUM") {
         info!("--with-lg-quantum={}", lg_quantum);
-        cmd.arg(format!("--with-lg-quantum={lg_quantum}"));
+        cmd.arg(format!("--with-lg-quantum={}", lg_quantum));
     }
 
     if let Ok(lg_vaddr) = read_and_watch_env("JEMALLOC_SYS_WITH_LG_VADDR") {
         info!("--with-lg-vaddr={}", lg_vaddr);
-        cmd.arg(format!("--with-lg-vaddr={lg_vaddr}"));
+        cmd.arg(format!("--with-lg-vaddr={}", lg_vaddr));
     }
 
     if use_prefix {
@@ -366,7 +366,7 @@ fn make_command(make_cmd: &str, build_dir: &Path, num_jobs: &str) -> Command {
 
     if let Ok(makeflags) = std::env::var("CARGO_MAKEFLAGS") {
         let makeflags = if let Ok(orig_makeflags) = std::env::var("MAKEFLAGS") {
-            format!("{orig_makeflags} {makeflags}")
+            format!("{} {}", orig_makeflags, makeflags)
         } else {
             makeflags
         };
@@ -388,7 +388,7 @@ fn run(cmd: &mut Command) {
 }
 
 fn execute(cmd: &mut Command, on_fail: impl FnOnce()) {
-    println!("running: {cmd:?}");
+    println!("running: {:?}", cmd);
     let status = match cmd.status() {
         Ok(status) => status,
         Err(e) => panic!("failed to execute command: {}", e),
